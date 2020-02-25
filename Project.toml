@@ -1,0 +1,4 @@
+name = "WaveEquation"
+uuid = "4114e8bf-8512-42f4-a8f4-c40e928ba8b2"
+authors = ["Ian Holst <ianholst@gmail.com>"]
+version = "0.1.0"
