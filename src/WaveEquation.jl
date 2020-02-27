@@ -121,9 +121,11 @@ end
 
 function waveEQ(state)
     A, Adot = state
+    Adot.coeffs[1] = 0
+    Adot.coeffs[end] = 0
     return [Adot, d2dx2(A)]
 end
 
-export DiscretizedFunction, discretize, hat, evaluate, ddx, d2dx2, rk2step, solve, waveEQ
+export DiscretizedFunction, discretize, hat, evaluate, ddx, d2dx2, rk2step, solve, waveEQ, quad_integrate
 
 end # module
