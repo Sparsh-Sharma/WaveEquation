@@ -1,7 +1,11 @@
 # Solving the Wave Equation
-This package is designed to solve the wave equation
+This package is designed to solve the 1D wave equation:
 
 ![](https://latex.codecogs.com/svg.latex?\frac{\partial^2%20A}{\partial%20t^2}=c^2\frac{\partial^2%20A}{\partial%20x^2})
+
+Example output:
+
+![](demo.gif)
 
 ## Assignment
 Create a Julia package that solves the scalar wave equation in 1+1 dimensions. You will need to:
@@ -17,12 +21,21 @@ Create a Julia package that solves the scalar wave equation in 1+1 dimensions. Y
 - present all the above in a git repository
 
 ## Method
-The wave equation is solved on a domain of [0,1] using simple position discretization (piecewise linear continuous functions). An initial configuration and a first time derivative for the wavefunction *A* are specified
+The wave equation is solved on a domain of [0,1] using simple position-based discretization (piecewise linear continuous functions). An initial configuration and a first time derivative for the wavefunction *A* are specified and then these states are evolved with a 2nd order Runge-Kutta integration scheme.
 
-The wave equation can be represented
-d/dt (A, dA/dt) = (dA/dt, d2A/dx2)
+In general, this kind of integration technique works for differential equations which can be expressed in the form
 
-We use 2nd order Runge-Kutta integration to step forward this equation in time
-which is a formalism agnostic of the spatial discretization
+![](https://latex.codecogs.com/svg.latex?\frac{\partial%20w}{\partial%20t}=f(w))
 
-d/dt (state) = f(state)
+Where *w* is a state vector entirely describing the current state of the system. The time evolution of the state is then given by:
+
+![](https://latex.codecogs.com/svg.latex?w_{i+1}=w_i+f%20\left(w_i+\frac{f(w_i)%20\Delta%20t}{2}%20\right)\Delta%20t)
+
+For the wave equation, it can be represented in this state formalism as:
+
+![](https://latex.codecogs.com/svg.latex?\frac{\partial}{\partial%20t}\begin{pmatrix}A\\\\\dot{A}\end{pmatrix}=\begin{pmatrix}\dot{A}\\\\\frac{\partial^2%20A}{\partial%20x^2}\end{pmatrix})
+
+## Using this code
+The notebook `src/demo.ipynb` contains a demonstration of using solving the wave equation using the functions defined in `src/WaveEquation.jl`. It also shows that total energy is conserved.
+
+The notebook `src/convergence.ipynb` demonstrates the convergence of a solution for increasing resolution in both time and space.
